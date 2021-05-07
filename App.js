@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import UsersComponent from "./src/components/UsersComponent";
 import PostsComponent from "./src/components/PostsComponent";
 import UserDetailsComponent from "./src/components/UserDetailsComponent";
+import PostDetailsComponent from "./src/components/PostDetailsComponent";
 
 let StackNavigator = createStackNavigator()
 export default function App() {
@@ -13,8 +14,9 @@ export default function App() {
         <NavigationContainer>
             <StackNavigator.Navigator>
                 <StackNavigator.Screen name={'Users'} component={UsersComponent}/>
-                <StackNavigator.Screen name={'Posts'} component={PostsComponent}/>
                 <StackNavigator.Screen name={'UserDetails'} component={UserDetailsComponent}/>
+                <StackNavigator.Screen name={'Posts'} component={PostsComponent}/>
+                <StackNavigator.Screen name={'PostDetails'} component={PostDetailsComponent}/>
             </StackNavigator.Navigator>
         </NavigationContainer>
     );

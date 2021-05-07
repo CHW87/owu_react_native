@@ -14,4 +14,14 @@ const getUser = async (id) => {
     return data
 };
 
-export {getUsers,getUser}
+const getPosts = async () => {
+    let {data} = await axiosInstance('/posts');
+    return data;
+};
+
+const getPost = async (id) => {
+    let {data} = await axiosInstance(`/posts/${id}`);
+    return data
+};
+
+export {getUsers,getUser,getPosts,getPost}
