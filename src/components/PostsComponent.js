@@ -1,29 +1,82 @@
 import React, {useEffect, useState} from "react";
-import {View,FlatList,StyleSheet,Text,Button,TouchableOpacity} from "react-native";
-import {getPosts} from "../api/API";
-import PostComponent from "./PostComponent";
+import {Modal, Pressable, StyleSheet, Text, View} from "react-native";
 
-const PostsComponent = (props) => {
-    const {navigation} = props;
-    let [posts,setPosts] = useState([]);
-    async function fetchData() {
-        let posts = await getPosts();
-        setPosts([...posts])
-    }
-    useEffect(() => {
-        fetchData();
-        return () => {
-            console.log('hello');
-        }
-        
-        },[])
-    return <View>
-        <FlatList data={posts} 
-                  renderItem={({item}) =><PostComponent nav = {navigation} item ={item}/>} 
-                  keyExtractor={item => '' + item.id}/>
+const PostsComponent = () => {
+    const [modalVisible, setModalVisible] = useState(false)
+    return (
+         <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable>
     </View>
+    );
 };
- export default PostsComponent;
+export default PostsComponent;
 
-let styles = StyleSheet.create({})
+let styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
+})
 

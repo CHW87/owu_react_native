@@ -1,23 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import UsersComponent from "./src/components/UsersComponent";
-import PostsComponent from "./src/components/PostsComponent";
-import UserDetailsComponent from "./src/components/UserDetailsComponent";
-import PostDetailsComponent from "./src/components/PostDetailsComponent";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import PostDrawer from "./src/components/PostDrawer";
+import CameraComponent from "./src/components/CameraComponent";
 
-let StackNavigator = createStackNavigator()
+let BottomTabNavigator = createBottomTabNavigator()
+
 export default function App() {
 
     return (
         <NavigationContainer>
-            <StackNavigator.Navigator>
-                <StackNavigator.Screen name={'Users'} component={UsersComponent}/>
-                <StackNavigator.Screen name={'UserDetails'} component={UserDetailsComponent}/>
-                <StackNavigator.Screen name={'Posts'} component={PostsComponent}/>
-                <StackNavigator.Screen name={'PostDetails'} component={PostDetailsComponent}/>
-            </StackNavigator.Navigator>
+            <BottomTabNavigator.Navigator 
+                tabBarOptions={{tabStyle:{justifyContent:'center',alignItems:'center',fontsize:'25'}}}>
+                <BottomTabNavigator.Screen name = {'users'} component = {UsersComponent}/>
+                <BottomTabNavigator.Screen name = {'posts'} component = {PostDrawer}/>
+                <BottomTabNavigator.Screen name = {'camera'} component = {CameraComponent} options={{unmountOnBlur:true}}/>
+            </BottomTabNavigator.Navigator>
+            
         </NavigationContainer>
     );
 }
